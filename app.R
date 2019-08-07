@@ -1,15 +1,18 @@
-library(shiny)
-library(shinythemes)
-library(shinycssloaders)
-library(dplyr)
-library(glue)
-library(Matrix)
-library(ggplot2)
-library(cowplot)
-library(markdown)
+suppressPackageStartupMessages({
+  library(shiny)
+  library(shinythemes)
+  library(shinycssloaders)
+  library(dplyr)
+  library(glue)
+  library(Matrix)
+  library(ggplot2)
+  library(cowplot)
+  library(markdown)
+})
 
 options(spinner.type = 6)
 options(spinner.color = "#ababab")
+theme_set(theme_cowplot())
 
 # source data ----
 # cluster/sample info per cell - tibble
@@ -158,6 +161,7 @@ server <- function(input, output) {
       labs(title = paste("Gene Expression:", input$in_gene)) +
       guides(color = guide_colorbar(title = "Expr.\nLevel\n(Log)")) +
       theme(
+        plot.title = element_text(hjust = 0.5),
         aspect.ratio = 1,
         axis.ticks = element_blank(),
         axis.text = element_blank()
@@ -168,6 +172,7 @@ server <- function(input, output) {
       geom_point(aes(color = cluster_long), size = 1, show.legend = TRUE) +
       labs(title = "Clusters") +
       theme(
+        plot.title = element_text(hjust = 0.5),
         aspect.ratio = 1,
         axis.ticks = element_blank(),
         axis.text = element_blank()
@@ -213,6 +218,7 @@ server <- function(input, output) {
       scale_y_continuous(limits = c(0, y_limit), expand = c(0, 0)) +
       scale_fill_manual(values = colors_clusters) +
       theme(
+        plot.title = element_text(hjust = 0.5),
         axis.ticks.x = element_blank(),
         legend.position = "none",
         strip.background = element_blank(),
@@ -241,6 +247,7 @@ server <- function(input, output) {
       geom_violin(aes(fill = cluster, color = cluster), scale = "width") +
       labs(title = input$in_gene, x = "Cluster", y = "Norm. Expr. Level (Log)") +
       theme(
+        plot.title = element_text(hjust = 0.5),
         axis.ticks.x = element_blank(),
         legend.position = "none",
         strip.background = element_blank(),
