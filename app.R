@@ -195,7 +195,8 @@ server <- function(input, output) {
         avg_exp_norm = mean(exp_norm),
         avg_exp_log = mean(exp_log),
         std_dev_norm = sd(exp_norm),
-        std_dev_log = sd(exp_log)
+        std_dev_log = sd(exp_log),
+        .groups = "keep"
       ) %>%
       mutate(
         std_err_norm = std_dev_norm / sqrt(num_cells),
@@ -212,7 +213,7 @@ server <- function(input, output) {
       geom_col(aes(fill = cluster), color = "black", size = 1) +
       geom_errorbar(
         aes(ymin = avg_exp_norm - std_err_norm, ymax = avg_exp_norm + std_err_norm),
-        width = 0.3, size = 1
+        width = 0.3, linewidth = 1
       ) +
       labs(title = input$in_gene, x = "Cluster", y = "Norm. Expr. Level") +
       scale_y_continuous(limits = c(0, y_limit), expand = c(0, 0)) +
