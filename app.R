@@ -42,7 +42,6 @@ if (!identical(clusters_ordered, names(colors_clusters))) stop("unexpected color
 ui <- fluidPage(
 
   # layout: header ----
-  tags$head(includeHTML("gtag.html")),
   theme = shinytheme("paper"),
 
   # layout: title ----
@@ -119,7 +118,8 @@ ui <- fluidPage(
     ),
     column(
       width = 4,
-      includeMarkdown("text.data.md")
+      includeMarkdown("text.data.md"),
+      HTML('<script data-goatcounter="https://cellularshinyapps.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>')
     )
 
   ),
