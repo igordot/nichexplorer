@@ -71,9 +71,7 @@ ui <- fluidPage(
       selectInput(
         inputId = "in_gene",
         label = "gene:",
-        choices = c(Choose = "", rownames(exp_mat)),
-        selected = "Lepr",
-        selectize = TRUE
+        choices = NULL
       )
     ),
 
@@ -133,6 +131,8 @@ ui <- fluidPage(
 
 # server: define server logic to summarize and view selected dataset ----
 server <- function(input, output) {
+
+  updateSelectizeInput(inputId = "in_gene", choices = rownames(exp_mat), selected = "Lepr", server = TRUE)
 
   # generate single gene expression values table ----
   exp_tbl <- reactive({
